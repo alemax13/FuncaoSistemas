@@ -1,0 +1,163 @@
+﻿<form id="formCadastro" method="post" action="/sua_rota">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="Nome">Nome:</label>
+                <input required type="text" class="form-control" id="Nome" name="Nome" placeholder="Ex.: João" maxlength="50">
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="Sobrenome">Sobrenome:</label>
+                <input required type="text" class="form-control" id="Sobrenome" name="Sobrenome" placeholder="Ex.: da Silva" maxlength="255">
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="CPF">CPF:</label>
+                <input required type="text" class="form-control" id="CPF" name="CPF"
+                       placeholder="Ex.: 999.999.999-99" maxlength="14"
+                       pattern="^\d{3}\.\d{3}\.\d{3}-\d{2}$"
+                       title="Formato: 999.999.999-99" oninput="mascaraCPF(this)">
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="Nacionalidade">Nacionalidade:</label>
+                <input required type="text" class="form-control" id="Nacionalidade" name="Nacionalidade" placeholder="Ex.: brasileira" maxlength="50">
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                <label for="CEP">CEP:</label>
+                <input required type="text" class="form-control" id="CEP" name="CEP"
+                       placeholder="Ex.: 01011-100" maxlength="9"
+                       oninput="mascaraCEP(this)">
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label for="Estado">Estado:</label>
+                <select required id="Estado" class="form-control" name="Estado">
+                    <option value="">Selecione</option>
+                    <option value="SP">São Paulo</option>
+                    <option value="PE">Pernambuco</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label for="Cidade">Cidade:</label>
+                <input required type="text" class="form-control" id="Cidade" name="Cidade" maxlength="50" placeholder="Ex.: São Paulo">
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                <label for="Logradouro">Logradouro:</label>
+                <input required type="text" class="form-control" id="Logradouro" name="Logradouro" placeholder="Ex.: Rua Boa Vista 253" maxlength="500">
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="Email">E-mail:</label>
+                <input required type="email" class="form-control" id="Email" name="Email" placeholder="Ex.: email@email.com" maxlength="2079">
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="Telefone">Telefone:</label>
+                <input required type="tel" class="form-control" id="Telefone" name="Telefone" placeholder="Ex.: (11) 2020-3030" maxlength="15">
+            </div>
+        </div>
+    </div>
+
+    <!-- Botão Beneficiários -->
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="pull-left">
+                <button type="button" class="btn btn-sm btn-primary" onclick="openPopup()">Beneficiários</button>
+            </div>
+        </div>
+        <div class="col-lg-12">
+            <div class="pull-right">
+                <button type="submit" class="btn btn-sm btn-success">Salvar</button>
+                <a href="/Cliente/Index" class="btn btn-sm btn-danger">Voltar</a>
+            </div>
+        </div>
+    </div>
+</form>
+
+<!-- Modal Beneficiários -->
+<div class="modal fade" id="modalBeneficiarios" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Beneficiário</h4>
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-5">
+                        <div class="form-group">
+                            <label for="CPF">CPF:</label>
+                            <input required type="text" class="form-control" id="CPF" name="CPF" maxlength="14">
+                        </div>
+                    </div>
+                    <div class="col-md-5">
+                        <div class="form-group">
+                            <label for="NomeBeneficiario">Nome:</label>
+                            <input required type="text" class="form-control" id="NomeBeneficiario" name="NomeBeneficiario" placeholder="Ex.: João da Silva" maxlength="50">
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <br />
+                            <button type="submit" class="btn btn-sm btn-success">Incluir</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal">Voltar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function mascaraCPF(cpf) {
+        cpf.value = cpf.value.replace(/\D/g, '');
+        cpf.value = cpf.value.replace(/(\d{3})(\d)/, '$1.$2');
+        cpf.value = cpf.value.replace(/(\d{3})(\d)/, '$1.$2');
+        cpf.value = cpf.value.replace(/(\d{3})(\d{1,2})$/, '$1-$2');
+        if (cpf.value.length > 14) {
+            cpf.value = cpf.value.slice(0, 14);
+        }
+    }
+
+    function mascaraCEP(cep) {
+        cep.value = cep.value.replace(/\D/g, '');
+        cep.value = cep.value.replace(/(\d{5})(\d)/, '$1-$2');
+        if (cep.value.length > 9) {
+            cep.value = cep.value.slice(0, 9);
+        }
+    }
+
+    function openPopup() {
+        $("#modalBeneficiarios").modal('show');
+    }
+</script>
